@@ -1,6 +1,6 @@
 pkgbase = ludo-the-game-git
 	pkgdesc = An implementation of the famous board game Ludo, using C++
-	pkgver = r135.b6c73fc
+	pkgver = v2.3.1.r0.bb8faea
 	pkgrel = 1
 	url = https://github.com/adi-g15/Ludo-The_Game
 	arch = x86_64
@@ -10,7 +10,5 @@ pkgbase = ludo-the-game-git
 	makedepends = gcc
 	provides = ludo-the-game
 	conflicts = ludo-the-game
-	source = ludo-the-game::git+https://github.com/adi-g15/Ludo-The_Game
-	md5sums = SKIP
 
 pkgname = ludo-the-game-git

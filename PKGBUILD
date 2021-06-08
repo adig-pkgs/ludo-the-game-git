@@ -1,6 +1,6 @@
 # Maintainer: Aditya Gupta <ag15035 at gmail dot com>
 pkgname=ludo-the-game-git
-pkgver=r135.b6c73fc
+pkgver=v2.3.1.r0.bb8faea
 pkgrel=1
 pkgdesc="An implementation of the famous board game Ludo, using C++"
 arch=('x86_64')
@@ -10,13 +10,23 @@ depends=()
 makedepends=('git' 'cmake' 'gcc')
 provides=("${pkgname%-git}")
 conflicts=("${pkgname%-git}")
-source=('ludo-the-game::git+https://github.com/adi-g15/Ludo-The_Game')
-md5sums=('SKIP')
+source=()
+md5sums=()
 
 pkgver() {
         cd "$srcdir/${pkgname%-git}"
 
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+	printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+}
+
+prepare() {
+	if [[ ! -e "$srcdir/${pkgname%-git}" ]]; then
+		git clone https://github.com/adi-g15/Ludo-The_Game "$srcdir/${pkgname%-git}" --depth=1
+	else
+		printf "$srcdir/${pkgname%-git} already exists ! Pulling latest commits...\n"
+		cd "$srcdir/${pkgname%-git}"
+		git pull
+	fi
 }
 
 build() {
